@@ -1,0 +1,13 @@
+package unicalApplication;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class UniCalUpeBackendApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

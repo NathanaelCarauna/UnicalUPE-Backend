@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import unicalApplication.models.UserEntity;
 
-public interface IUserRepository extends JpaRepository<UserEntity, Long>{
+public interface IUserDAO extends JpaRepository<UserEntity, Long>{
 
 }

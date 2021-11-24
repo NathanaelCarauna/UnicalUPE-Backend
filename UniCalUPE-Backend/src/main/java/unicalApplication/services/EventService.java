@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javassist.NotFoundException;
+import unicalApplication.enums.Category;
 import unicalApplication.models.Event;
 import unicalApplication.repositories.IEventDAO;
 
@@ -16,6 +17,11 @@ public class EventService {
 
 	@Autowired
 	IEventDAO eventDAO;
+
+	public List<Event> findByCategory(Category category) throws NotFoundException {
+		List<Event> findByCategory = eventDAO.findByCategory(category);
+		return findByCategory;
+	}
 
 	public List<Event> getAll() {
 		return eventDAO.findAll();

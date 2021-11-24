@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
+import unicalApplication.models.Event;
 import unicalApplication.models.Notification;
 import unicalApplication.models.UserEntity;
 import unicalApplication.repositories.INotificationDAO;
@@ -17,7 +18,7 @@ public class NotificationService {
 	@Autowired
 	INotificationDAO notificationDAO;
 
-	public List<Notification> findByCategory(UserEntity user) throws NotFoundException {
+	public List<Notification> findByUser(UserEntity user) throws NotFoundException {
 		List<Notification> findByUser = notificationDAO.findByUser(user);
 		return findByUser;
 	}
@@ -45,5 +46,16 @@ public class NotificationService {
 		Notification Notification = this.findByID(id);
 		notificationDAO.delete(Notification);
 		return Notification;
+	}
+
+	public Notification update(long id, Notification notification) throws NotFoundException {
+		Notification notificationInDb = this.findByID(id);
+		if (notification.getEvent() != null)
+			notificationInDb.setEvent(notification.getEvent());
+		if (notification.getTitle() != null)
+			notificationInDb.setTitle(notification.getTitle());
+
+		Notification save = notificationDAO.save(notificationInDb);
+		return save;
 	}
 }

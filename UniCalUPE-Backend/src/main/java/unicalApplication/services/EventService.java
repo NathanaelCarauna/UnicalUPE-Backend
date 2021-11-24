@@ -23,8 +23,12 @@ public class EventService {
 		return findByCategory;
 	}
 
-	public List<Event> getAll() {
-		return eventDAO.findAll();
+	public List<Event> getAll() throws NotFoundException {
+		List<Event> all = eventDAO.findAll();
+		if(all.isEmpty()) {
+			throw new NotFoundException("Nenhum evento encontrado");
+		}
+		return all;
 	}
 
 	public Event add(Event event) {
@@ -44,7 +48,8 @@ public class EventService {
 		if (event.getTitle() != null)
 			eventInDB.setTitle(event.getTitle());
 
-		return eventDAO.save(eventInDB);
+		Event save = eventDAO.save(eventInDB);
+		return save;
 	}
 
 	public Event findByID(Long id) throws NotFoundException {

@@ -41,8 +41,9 @@ public class CourseService {
 		return Course;
 	}
 
-	public Course update(long id, Course Course) throws NotFoundException {
+	public Course update(long id, Course course) throws NotFoundException {
 		Course CourseInDb = this.findByID(id);
+		CourseInDb.setName(course.getName());
 		Course save = courseDAO.save(CourseInDb);
 		return save;
 	}

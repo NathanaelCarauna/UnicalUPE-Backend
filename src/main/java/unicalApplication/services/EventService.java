@@ -25,7 +25,7 @@ public class EventService {
 
 	public List<Event> getAll() throws NotFoundException {
 		List<Event> all = eventDAO.findAll();
-		if(all.isEmpty()) {
+		if(!all.isEmpty()) {
 			throw new NotFoundException("Nenhum evento encontrado");
 		}
 		return all;

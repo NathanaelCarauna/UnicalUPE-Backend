@@ -30,7 +30,7 @@ public class UserService {
 
 	public UserEntity findByID(Long id) throws NotFoundException {
 		Optional<UserEntity> userEntity = userDAO.findById(id);
-		if (userEntity.isEmpty())
+		if (!userEntity.isPresent())
 			throw new NotFoundException("UserEntity não encontrado");
 		return userEntity.get();
 	}

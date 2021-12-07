@@ -37,7 +37,7 @@ public class NotificationService {
 
 	public Notification findByID(Long id) throws NotFoundException {
 		Optional<Notification> Notification = notificationDAO.findById(id);
-		if (Notification.isEmpty())
+		if (!Notification.isPresent())
 			throw new NotFoundException("Notificationo não encontrado");
 		return Notification.get();
 	}

@@ -30,7 +30,7 @@ public class CourseService {
 
 	public Course findByID(Long id) throws NotFoundException {
 		Optional<Course> Course = courseDAO.findById(id);
-		if (Course.isEmpty())
+		if (!Course.isPresent())
 			throw new NotFoundException("Course não encontrado");
 		return Course.get();
 	}

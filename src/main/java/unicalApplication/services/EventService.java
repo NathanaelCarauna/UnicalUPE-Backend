@@ -25,7 +25,7 @@ public class EventService {
 
 	public List<Event> getAll() throws NotFoundException {
 		List<Event> all = eventDAO.findAll();
-		if(!all.isEmpty()) {
+		if(all.isEmpty()) {
 			throw new NotFoundException("Nenhum evento encontrado");
 		}
 		return all;
@@ -60,7 +60,7 @@ public class EventService {
 
 	public Event findByID(Long id) throws NotFoundException {
 		Optional<Event> event = eventDAO.findById(id);
-		if (event.isEmpty())
+		if (!event.isPresent())
 			throw new NotFoundException("Evento não encontrado");
 		return event.get();
 	}

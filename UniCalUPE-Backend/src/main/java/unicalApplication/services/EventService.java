@@ -43,10 +43,16 @@ public class EventService {
 			eventInDB.setEndDateTime(event.getEndDateTime());
 		if (event.getStartDateTime() != null)
 			eventInDB.setStartDateTime(event.getStartDateTime());
-		if (event.getPalestrante() != null)
-			eventInDB.setPalestrante(event.getPalestrante());
+		if (event.getPresentor() != null)
+			eventInDB.setPresentor(event.getPresentor());
 		if (event.getTitle() != null)
 			eventInDB.setTitle(event.getTitle());
+		if (event.getDescription() != null)
+			eventInDB.setDescription(event.getDescription());
+		if (event.getLink() != null)
+			eventInDB.setLink(event.getLink());
+		if (event.getCourse() != null)
+			eventInDB.setCourse(event.getCourse());
 
 		Event save = eventDAO.save(eventInDB);
 		return save;

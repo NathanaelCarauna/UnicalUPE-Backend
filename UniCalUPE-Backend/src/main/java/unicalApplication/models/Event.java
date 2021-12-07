@@ -20,8 +20,10 @@ public class Event {
 	private String title;
 	
 	private Category category;
-	private String palestrante;
-	
+	private String presentor;
+	private String course;
+	private String description;
+	private String link;
 	private Date startDateTime;
 	private Date endDateTime;
 }

@@ -37,7 +37,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{email}")
-	public ResponseEntity<UserEntity> findById(@PathVariable String email) {
+	public ResponseEntity<UserEntity> findByEmail(@PathVariable String email) {
 		UserEntity findByID;
 		try {
 			findByID = userService.findByEmail(email);
@@ -54,7 +54,7 @@ public class UserController {
 		return ResponseEntity.ok(add);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/{email}")
 	public ResponseEntity<UserEntity> update(@PathVariable String email, UserEntity course){
 		UserEntity update;
 		try {
@@ -66,7 +66,7 @@ public class UserController {
 		return ResponseEntity.ok(update);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{email}")
 	public ResponseEntity<UserEntity> delete(@PathVariable String email){
 		UserEntity delete;
 		try {

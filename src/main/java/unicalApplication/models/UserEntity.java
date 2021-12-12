@@ -19,6 +19,7 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	private String email;
 	private String name;
 	
 	@OneToMany(targetEntity = Notification.class)

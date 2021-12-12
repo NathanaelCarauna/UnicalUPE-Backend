@@ -28,23 +28,25 @@ public class UserService {
 		return userDAO.save(UserEntity);
 	}
 
-	public UserEntity findByID(Long id) throws NotFoundException {
-		Optional<UserEntity> userEntity = userDAO.findById(id);
+	public UserEntity findByEmail(String email) throws NotFoundException {
+		Optional<UserEntity> userEntity = userDAO.findByEmail(email);
 		if (!userEntity.isPresent())
 			throw new NotFoundException("UserEntity não encontrado");
 		return userEntity.get();
 	}
 
-	public UserEntity delete(Long id) throws NotFoundException {
-		UserEntity UserEntity = this.findByID(id);
+	public UserEntity delete(String email) throws NotFoundException {
+		UserEntity UserEntity = this.findByEmail(email);
 		userDAO.delete(UserEntity);
 		return UserEntity;
 	}
 
-	public UserEntity update(long id, UserEntity user) throws NotFoundException {
-		UserEntity userEntityInDb = this.findByID(id);
+	public UserEntity update(String email, UserEntity user) throws NotFoundException {
+		UserEntity userEntityInDb = this.findByEmail(email);
 		if (user.getName() != null)
 			userEntityInDb.setName(user.getName());
+		if (user.getEmail() != null)
+			userEntityInDb.setEmail(user.getEmail());
 		if (user.getAccountType() != null)
 			userEntityInDb.setAccountType(user.getAccountType());
 		if (user.getCourse() != null)

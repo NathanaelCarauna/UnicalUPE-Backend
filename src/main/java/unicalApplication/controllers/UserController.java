@@ -36,11 +36,11 @@ public class UserController {
 		return ResponseEntity.ok(all);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<UserEntity> findById(@PathVariable long id) {
+	@GetMapping("/{email}")
+	public ResponseEntity<UserEntity> findById(@PathVariable String email) {
 		UserEntity findByID;
 		try {
-			findByID = userService.findByID(id);
+			findByID = userService.findByEmail(email);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();
@@ -55,10 +55,10 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserEntity> update(@PathVariable long id, UserEntity course){
+	public ResponseEntity<UserEntity> update(@PathVariable String email, UserEntity course){
 		UserEntity update;
 		try {
-			update = userService.update(id, course);
+			update = userService.update(email, course);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();
@@ -67,10 +67,10 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<UserEntity> delete(@PathVariable long id){
+	public ResponseEntity<UserEntity> delete(@PathVariable String email){
 		UserEntity delete;
 		try {
-			delete = userService.delete(id);
+			delete = userService.delete(email);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();

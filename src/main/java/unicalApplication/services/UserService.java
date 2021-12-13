@@ -42,6 +42,9 @@ public class UserService {
 	}
 
 	public UserEntity update(String email, UserEntity user) throws NotFoundException {
+		if (user.getId() == null) {
+			return add(user);
+		}
 		UserEntity userEntityInDb = this.findByEmail(email);
 		if (user.getName() != null)
 			userEntityInDb.setName(user.getName());

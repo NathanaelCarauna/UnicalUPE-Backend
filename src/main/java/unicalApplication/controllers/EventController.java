@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,13 +63,13 @@ public class EventController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Event> add(@Valid Event event) {
+	public ResponseEntity<Event> add(@Valid @RequestBody Event event) {
 		Event add = eventService.add(event);
 		return ResponseEntity.ok(add);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Event> update(@PathVariable long id, Event event){
+	public ResponseEntity<Event> update(@PathVariable long id, @RequestBody Event event){
 		Event update;
 		try {
 			update = eventService.update(id, event);

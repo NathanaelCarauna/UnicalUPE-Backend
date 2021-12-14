@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,13 +50,13 @@ public class CourseController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Course> add(@Valid Course notification) {
+	public ResponseEntity<Course> add(@Valid @RequestBody Course notification) {
 		Course add = courseService.add(notification);
 		return ResponseEntity.ok(add);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Course> update(@PathVariable long id, Course course){
+	public ResponseEntity<Course> update(@PathVariable long id, @RequestBody Course course){
 		Course update;
 		try {
 			update = courseService.update(id, course);

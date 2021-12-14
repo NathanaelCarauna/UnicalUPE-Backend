@@ -28,9 +28,9 @@ public class UserService {
 		return all;
 	}
 
-	public UserEntity add(UserEntity UserEntity){
-		userDAO.save(UserEntity);		
-		return UserEntity;			
+	public UserEntity add(UserEntity userEntity){
+		userEntity.setCourse(courseDAO.getById(userEntity.getCourse().getId()));		
+		return userDAO.save(userEntity);			
 	}
 
 	public UserEntity findByEmail(String email) throws NotFoundException {

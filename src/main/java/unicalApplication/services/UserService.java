@@ -29,7 +29,8 @@ public class UserService {
 	}
 
 	public UserEntity add(UserEntity UserEntity){
-		return userDAO.save(UserEntity);			
+		userDAO.save(UserEntity);		
+		return UserEntity;			
 	}
 
 	public UserEntity findByEmail(String email) throws NotFoundException {

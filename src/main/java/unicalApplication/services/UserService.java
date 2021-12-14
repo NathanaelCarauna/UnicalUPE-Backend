@@ -45,11 +45,11 @@ public class UserService {
 		return UserEntity;
 	}
 
-	public UserEntity update(String email, UserEntity user) throws Exception {
+	public UserEntity update(UserEntity user) throws Exception {
 		if (user.getId() == null) {
 			return add(user);
 		}
-		UserEntity userEntityInDb = this.findByEmail(email);
+		UserEntity userEntityInDb = this.findByEmail(user.getEmail());
 		if (user.getName() != null)
 			userEntityInDb.setName(user.getName());
 		if (user.getEmail() != null)

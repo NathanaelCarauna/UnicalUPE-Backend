@@ -55,11 +55,11 @@ public class UserController {
 		return ResponseEntity.ok(add);
 	}
 
-	@PutMapping("/{email}")
-	public ResponseEntity<UserEntity> update(@PathVariable String email, @RequestBody UserEntity user) throws Exception{
+	@PutMapping
+	public ResponseEntity<UserEntity> update( @RequestBody UserEntity user) throws Exception{
 		UserEntity update;
 		try {
-			update = userService.update(email, user);
+			update = userService.update(user);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();

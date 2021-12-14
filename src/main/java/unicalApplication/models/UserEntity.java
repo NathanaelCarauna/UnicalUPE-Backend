@@ -31,7 +31,7 @@ public class UserEntity {
 	
 	private AccountType accountType;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
 	private Course course;
 }

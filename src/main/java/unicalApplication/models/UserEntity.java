@@ -26,7 +26,7 @@ public class UserEntity {
 	private String email;
 	private String name;
 	
-	@OneToMany(targetEntity = Notification.class)
+	@OneToMany(targetEntity = Notification.class, cascade = CascadeType.ALL)
 	private List<Notification> notifications;
 	
 	private AccountType accountType;

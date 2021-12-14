@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
+import unicalApplication.models.Course;
 import unicalApplication.models.UserEntity;
+import unicalApplication.repositories.ICourseDAO;
 import unicalApplication.repositories.IUserDAO;
 
 @Service
@@ -15,6 +17,8 @@ public class UserService {
 
 	@Autowired
 	IUserDAO userDAO;
+	@Autowired
+	ICourseDAO courseDAO;
 
 	public List<UserEntity> getAll() throws NotFoundException {
 		List<UserEntity> all = userDAO.findAll();
@@ -56,8 +60,10 @@ public class UserService {
 			userEntityInDb.setEmail(user.getEmail());
 		if (user.getAccountType() != null)
 			userEntityInDb.setAccountType(user.getAccountType());
-		if (user.getCourse() != null)
-			userEntityInDb.setCourse(user.getCourse());
+		if (user.getCourse() != null) {
+			Course course = courseDAO.getById(user.getCourse().getId());
+			userEntityInDb.setCourse(course);
+		}
 
 		UserEntity save = userDAO.save(userEntityInDb);
 		return save;

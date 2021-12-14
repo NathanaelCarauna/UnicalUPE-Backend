@@ -50,13 +50,13 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserEntity> add(@Valid @RequestBody UserEntity notification) throws Exception {
+	public ResponseEntity<UserEntity> add(@Valid @RequestBody UserEntity notification){
 		UserEntity add = userService.add(notification);
 		return ResponseEntity.ok(add);
 	}
 
 	@PutMapping
-	public ResponseEntity<UserEntity> update( @RequestBody UserEntity user) throws Exception{
+	public ResponseEntity<UserEntity> update( @RequestBody UserEntity user){
 		UserEntity update;
 		try {
 			update = userService.update(user);

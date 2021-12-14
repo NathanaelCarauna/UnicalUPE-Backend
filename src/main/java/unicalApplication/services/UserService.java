@@ -28,12 +28,8 @@ public class UserService {
 		return all;
 	}
 
-	public UserEntity add(UserEntity UserEntity) throws Exception {
-		try {
-			return userDAO.save(UserEntity);			
-		}catch(Exception e){
-			throw new Exception("Esse email já foi cadastrado", e);
-		}
+	public UserEntity add(UserEntity UserEntity){
+		return userDAO.save(UserEntity);			
 	}
 
 	public UserEntity findByEmail(String email) throws NotFoundException {
@@ -49,7 +45,7 @@ public class UserService {
 		return UserEntity;
 	}
 
-	public UserEntity update(UserEntity user) throws Exception {
+	public UserEntity update(UserEntity user) throws NotFoundException {
 		if (user.getId() == null) {
 			return add(user);
 		}

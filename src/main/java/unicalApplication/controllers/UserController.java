@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,16 +50,16 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserEntity> add(@Valid UserEntity notification) {
+	public ResponseEntity<UserEntity> add(@Valid @RequestBody UserEntity notification) {
 		UserEntity add = userService.add(notification);
 		return ResponseEntity.ok(add);
 	}
 
 	@PutMapping("/{email}")
-	public ResponseEntity<UserEntity> update(@PathVariable String email, UserEntity course){
+	public ResponseEntity<UserEntity> update(@PathVariable String email, @RequestBody UserEntity user){
 		UserEntity update;
 		try {
-			update = userService.update(email, course);
+			update = userService.update(email, user);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();

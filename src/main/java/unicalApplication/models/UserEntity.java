@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import unicalApplication.enums.AccountType;
 
@@ -26,6 +28,7 @@ public class UserEntity {
 	private String email;
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(targetEntity = Notification.class, cascade = CascadeType.ALL)
 	private List<Notification> notifications;
 	

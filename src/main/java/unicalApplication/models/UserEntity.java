@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -34,7 +35,7 @@ public class UserEntity {
 	
 	private AccountType accountType;
 	
-	@OneToOne
+	@ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
 	private Course course;
 }

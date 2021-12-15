@@ -1,10 +1,13 @@
 package unicalApplication.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,6 +25,6 @@ public class Course {
 	private String name;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy = "course")
-    private UserEntity user;
+	@OneToMany(mappedBy = "course")
+    private List<UserEntity> user;
 }

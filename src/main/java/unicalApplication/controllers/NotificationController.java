@@ -40,7 +40,7 @@ public class NotificationController {
 		return ResponseEntity.ok(all);
 	}
 
-	@GetMapping("/findByUser/{category}")
+	@GetMapping("/findByUser/{user}")
 	public ResponseEntity<List<Notification>> findbYUser(@PathVariable UserEntity user){
 		List<Notification> byUser;
 		try {

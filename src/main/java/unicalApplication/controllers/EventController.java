@@ -1,5 +1,6 @@
 package unicalApplication.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -27,11 +28,11 @@ public class EventController {
 	EventService eventService;
 
 	@GetMapping
-	public ResponseEntity<List<Event>> findAll(){
+	public ResponseEntity<List<Event>> findAll() {
 		List<Event> all;
 		try {
 			all = eventService.getAll();
-		} catch (NotFoundException e) {			
+		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();
 		}
@@ -39,7 +40,7 @@ public class EventController {
 	}
 
 	@GetMapping("/findbycategory/{category}")
-	public ResponseEntity<List<Event>> findByCategory(@PathVariable Category category){
+	public ResponseEntity<List<Event>> findByCategory(@PathVariable Category category) {
 		List<Event> byCategory;
 		try {
 			byCategory = eventService.findByCategory(category);
@@ -48,6 +49,18 @@ public class EventController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(byCategory);
+	}
+
+	@GetMapping("/findByDate/{date}")
+	public ResponseEntity<List<Event>> findByDate(@PathVariable String date) {
+		List<Event> byDate;
+		try {
+			byDate = eventService.findByDate(date);
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(byDate);
 	}
 
 	@GetMapping("/{id}")
@@ -69,7 +82,7 @@ public class EventController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Event> update(@PathVariable long id, @RequestBody Event event){
+	public ResponseEntity<Event> update(@PathVariable long id, @RequestBody Event event) {
 		Event update;
 		try {
 			update = eventService.update(id, event);
@@ -81,7 +94,7 @@ public class EventController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Event> delete(@PathVariable long id){
+	public ResponseEntity<Event> delete(@PathVariable long id) {
 		Event delete;
 		try {
 			delete = eventService.delete(id);

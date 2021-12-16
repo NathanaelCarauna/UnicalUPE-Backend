@@ -26,5 +26,9 @@ public class Course {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "course")
-    private List<UserEntity> user;
+    private List<UserEntity> users;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "course")
+	private List<Event> events;
 }

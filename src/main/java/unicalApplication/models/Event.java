@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import unicalApplication.enums.Category;
@@ -20,10 +22,15 @@ public class Event {
 	private String title;
 	
 	private Category category;
+	@ManyToOne
+	@JoinColumn(name = "course_id", referencedColumnName = "id")
+	private Course course;
+	private String local;
 	private String presentor;
-	private String course;
 	private String description;
 	private String link;
-	private Date startDateTime;
-	private Date endDateTime;
+	private String startDate;
+	private String startHour;
+	private String endDate;
+	private String endHour;
 }

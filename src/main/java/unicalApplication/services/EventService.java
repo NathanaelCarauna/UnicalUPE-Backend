@@ -1,5 +1,6 @@
 package unicalApplication.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javassist.NotFoundException;
 import unicalApplication.enums.Category;
 import unicalApplication.models.Event;
+import unicalApplication.repositories.ICourseDAO;
 import unicalApplication.repositories.IEventDAO;
 
 @Service
@@ -17,10 +19,17 @@ public class EventService {
 
 	@Autowired
 	IEventDAO eventDAO;
+	@Autowired
+	ICourseDAO courseDAO;
+	
 
 	public List<Event> findByCategory(Category category) throws NotFoundException {
 		List<Event> findByCategory = eventDAO.findByCategory(category);
 		return findByCategory;
+	}
+	public List<Event> findByDate(String date) throws NotFoundException {
+		List<Event> findByDate = eventDAO.findByStartDate(date);
+		return findByDate;
 	}
 
 	public List<Event> getAll() throws NotFoundException {
@@ -31,18 +40,26 @@ public class EventService {
 		return all;
 	}
 
-	public Event add(Event event) {
+	public Event add(Event event) {		
 		return eventDAO.save(event);
 	}
 
 	public Event update(Long id, Event event) throws NotFoundException {
 		Event eventInDB = this.findByID(id);
+		if (event.getCourse() != null)
+			eventInDB.setCourse(courseDAO.getById(event.getCourse().getId()));
 		if (event.getCategory() != null)
 			eventInDB.setCategory(event.getCategory());
-		if (event.getEndDateTime() != null)
-			eventInDB.setEndDateTime(event.getEndDateTime());
-		if (event.getStartDateTime() != null)
-			eventInDB.setStartDateTime(event.getStartDateTime());
+		if (event.getLocal() != null)
+			eventInDB.setLocal(event.getLocal());
+		if (event.getEndDate() != null)
+			eventInDB.setEndDate(event.getEndDate());
+		if (event.getEndHour() != null)
+			eventInDB.setEndHour(event.getEndHour());
+		if (event.getStartDate() != null)
+			eventInDB.setStartDate(event.getStartDate());
+		if (event.getStartHour() != null)
+			eventInDB.setStartHour(event.getStartHour());
 		if (event.getPresentor() != null)
 			eventInDB.setPresentor(event.getPresentor());
 		if (event.getTitle() != null)

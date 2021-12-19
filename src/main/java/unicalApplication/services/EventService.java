@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javassist.NotFoundException;
 import unicalApplication.enums.Category;
+import unicalApplication.models.Course;
 import unicalApplication.models.Event;
 import unicalApplication.repositories.ICourseDAO;
 import unicalApplication.repositories.IEventDAO;
@@ -21,12 +22,18 @@ public class EventService {
 	IEventDAO eventDAO;
 	@Autowired
 	ICourseDAO courseDAO;
-	
 
 	public List<Event> findByCategory(Category category) throws NotFoundException {
 		List<Event> findByCategory = eventDAO.findByCategory(category);
 		return findByCategory;
 	}
+
+	public List<Event> findByCourse(long courseId) {
+		Optional<Course> course = courseDAO.findById(courseId);
+		List<Event> findByCourse = eventDAO.findByCourse(course.get());
+		return findByCourse;
+	}
+
 	public List<Event> findByDate(String date) throws NotFoundException {
 		List<Event> findByDate = eventDAO.findByStartDate(date);
 		return findByDate;
@@ -34,13 +41,13 @@ public class EventService {
 
 	public List<Event> getAll() throws NotFoundException {
 		List<Event> all = eventDAO.findAll();
-		if(all.isEmpty()) {
+		if (all.isEmpty()) {
 			throw new NotFoundException("Nenhum evento encontrado");
 		}
 		return all;
 	}
 
-	public Event add(Event event) {		
+	public Event add(Event event) {
 		return eventDAO.save(event);
 	}
 
@@ -68,8 +75,6 @@ public class EventService {
 			eventInDB.setDescription(event.getDescription());
 		if (event.getLink() != null)
 			eventInDB.setLink(event.getLink());
-		if (event.getCourse() != null)
-			eventInDB.setCourse(event.getCourse());
 
 		Event save = eventDAO.save(eventInDB);
 		return save;
@@ -87,4 +92,5 @@ public class EventService {
 		eventDAO.delete(event);
 		return event;
 	}
+
 }

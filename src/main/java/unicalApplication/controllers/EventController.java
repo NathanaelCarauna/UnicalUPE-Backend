@@ -1,6 +1,5 @@
 package unicalApplication.controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javassist.NotFoundException;
 import unicalApplication.enums.Category;
+import unicalApplication.models.Course;
 import unicalApplication.models.Event;
 import unicalApplication.services.EventService;
 
@@ -48,6 +48,13 @@ public class EventController {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();
 		}
+		return ResponseEntity.ok(byCategory);
+	}
+
+	@GetMapping("/findbycourse/{courseID}")
+	public ResponseEntity<List<Event>> findByCourse(@PathVariable long courseID) {
+		List<Event> byCategory;
+		byCategory = eventService.findByCourse(courseID);
 		return ResponseEntity.ok(byCategory);
 	}
 

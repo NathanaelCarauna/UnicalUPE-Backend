@@ -83,7 +83,7 @@ public class EventController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Event> add(@Valid @RequestBody Event event) {
+	public ResponseEntity<Event> add(@RequestBody Event event) {
 		Event add = eventService.add(event);
 		return ResponseEntity.ok(add);
 	}

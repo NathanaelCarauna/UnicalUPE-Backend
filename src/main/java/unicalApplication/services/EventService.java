@@ -1,5 +1,6 @@
 package unicalApplication.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +59,7 @@ public class EventService {
 		if (event.getCourse() != null) {
 			List<UserEntity> findByCourse = userDAO.findByCourse(event.getCourse());
 			Event eventInDB = eventDAO.save(event);
+			List<Notification> notifications = new ArrayList<>();
 			for (int i = 0; i < findByCourse.size(); i++) {
 				Notification notification = new Notification();
 				notification.setTitle(eventInDB.getTitle());
@@ -65,11 +67,13 @@ public class EventService {
 				notification.setCategory(eventInDB.getCategory());
 				notification.setVisualized(false);
 				notification.setUser(findByCourse.get(i));
-				findByCourse.get(i).getNotifications().add(notification);
 				notification.setEvent(eventInDB);
-				notificationDAO.save(notification);
+				findByCourse.get(i).getNotifications().add(notification);
+				notifications.add(notification);
 			}
+			notificationDAO.saveAll(notifications);
 			userDAO.saveAll(findByCourse);
+			return eventInDB;
 		}
 		return eventDAO.save(event);
 	}

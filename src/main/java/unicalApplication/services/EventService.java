@@ -58,13 +58,13 @@ public class EventService {
 	public Event add(Event event) {
 		if (event.getCourse() != null) {
 			List<UserEntity> findByCourse = userDAO.findByCourse(event.getCourse());
-			Notification notification = new Notification();
-			notification.setTitle(event.getTitle());
-			notification.setCreationTime(new Date());
-//			notification.setEvent(event);
-			notification.setVisualized(false);
-			notification.setDescription(event.getDescription());
 			for(int i = 0; i<findByCourse.size(); i++) {
+				Notification notification = new Notification();
+				notification.setTitle(event.getTitle());
+				notification.setCreationTime(new Date());
+//			notification.setEvent(event);
+				notification.setVisualized(false);
+				notification.setDescription(event.getDescription());
 				notification.setUser(findByCourse.get(i));
 				findByCourse.get(i).getNotifications().add(notification);
 				notificationDAO.save(notification);

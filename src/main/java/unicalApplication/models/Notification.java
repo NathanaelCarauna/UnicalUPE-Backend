@@ -27,6 +27,8 @@ public class Notification {
 	@OneToOne
 	private Event event;
 	
+	private String description;
+	
 	@ManyToOne
 	@JsonIgnore
 	private UserEntity user;

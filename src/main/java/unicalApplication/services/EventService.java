@@ -12,8 +12,12 @@ import javassist.NotFoundException;
 import unicalApplication.enums.Category;
 import unicalApplication.models.Course;
 import unicalApplication.models.Event;
+import unicalApplication.models.Notification;
+import unicalApplication.models.UserEntity;
 import unicalApplication.repositories.ICourseDAO;
 import unicalApplication.repositories.IEventDAO;
+import unicalApplication.repositories.INotificationDAO;
+import unicalApplication.repositories.IUserDAO;
 
 @Service
 public class EventService {
@@ -22,6 +26,10 @@ public class EventService {
 	IEventDAO eventDAO;
 	@Autowired
 	ICourseDAO courseDAO;
+	@Autowired
+	IUserDAO userDAO;
+	@Autowired
+	INotificationDAO notificationDAO;
 
 	public List<Event> findByCategory(Category category) throws NotFoundException {
 		List<Event> findByCategory = eventDAO.findByCategory(category);
@@ -48,6 +56,21 @@ public class EventService {
 	}
 
 	public Event add(Event event) {
+		if (event.getCourse() != null) {
+			List<UserEntity> findByCourse = userDAO.findByCourse(event.getCourse());
+			Notification notification = new Notification();
+			notification.setTitle(event.getTitle());
+			notification.setCreationTime(new Date());
+//			notification.setEvent(event);
+			notification.setVisualized(false);
+			notification.setDescription(event.getDescription());
+			for(int i = 0; i<findByCourse.size(); i++) {
+				notification.setUser(findByCourse.get(i));
+				findByCourse.get(i).getNotifications().add(notification);
+				notificationDAO.save(notification);
+			}
+			userDAO.saveAll(findByCourse);
+		}
 		return eventDAO.save(event);
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,11 +41,11 @@ public class NotificationController {
 		return ResponseEntity.ok(all);
 	}
 
-	@GetMapping("/findByUser/{user}")
-	public ResponseEntity<List<Notification>> findbYUser(@PathVariable UserEntity user){
+	@GetMapping("/findByUserEmail/{email}")
+	public ResponseEntity<List<Notification>> findByUser(@PathVariable String email){
 		List<Notification> byUser;
 		try {
-			byUser = notificationService.findByUser(user);
+			byUser = notificationService.findByEmail(email);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();
@@ -65,13 +66,13 @@ public class NotificationController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Notification> add(@Valid Notification notification) {
+	public ResponseEntity<Notification> add(@Valid @RequestBody Notification notification) {
 		Notification add = notificationService.add(notification);
 		return ResponseEntity.ok(add);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Notification> update(@PathVariable long id, Notification notification){
+	public ResponseEntity<Notification> update(@PathVariable long id, @RequestBody Notification notification){
 		Notification update;
 		try {
 			update = notificationService.update(id, notification);

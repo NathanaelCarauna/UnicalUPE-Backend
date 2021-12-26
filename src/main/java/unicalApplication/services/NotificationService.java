@@ -11,15 +11,19 @@ import unicalApplication.models.Event;
 import unicalApplication.models.Notification;
 import unicalApplication.models.UserEntity;
 import unicalApplication.repositories.INotificationDAO;
+import unicalApplication.repositories.IUserDAO;
 
 @Service
 public class NotificationService {
 
 	@Autowired
 	INotificationDAO notificationDAO;
+	@Autowired
+	IUserDAO userDao;
 
-	public List<Notification> findByUser(UserEntity user) throws NotFoundException {
-		List<Notification> findByUser = notificationDAO.findByUser(user);
+	public List<Notification> findByEmail(String email) throws NotFoundException {
+		Optional<UserEntity> findByEmail = userDao.findByEmail(email);
+		List<Notification> findByUser = notificationDAO.findByUser(findByEmail.get());
 		return findByUser;
 	}
 
@@ -34,6 +38,7 @@ public class NotificationService {
 	public Notification add(Notification Notification) {
 		return notificationDAO.save(Notification);
 	}
+		
 
 	public Notification findByID(Long id) throws NotFoundException {
 		Optional<Notification> Notification = notificationDAO.findById(id);
@@ -54,6 +59,10 @@ public class NotificationService {
 			notificationInDb.setEvent(notification.getEvent());
 		if (notification.getTitle() != null)
 			notificationInDb.setTitle(notification.getTitle());
+		if(notification.isVisualized())
+			notificationInDb.setVisualized(true);
+		if(notification.getDescription()!= null)
+			notificationInDb.setDescription(notification.getDescription());
 
 		Notification save = notificationDAO.save(notificationInDb);
 		return save;

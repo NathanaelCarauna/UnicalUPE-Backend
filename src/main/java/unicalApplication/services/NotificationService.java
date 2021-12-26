@@ -61,8 +61,8 @@ public class NotificationService {
 			notificationInDb.setTitle(notification.getTitle());
 		if(notification.isVisualized())
 			notificationInDb.setVisualized(true);
-		if(notification.getDescription()!= null)
-			notificationInDb.setDescription(notification.getDescription());
+		if(notification.getCategory()!= null)
+			notificationInDb.setCategory(notification.getCategory());
 
 		Notification save = notificationDAO.save(notificationInDb);
 		return save;

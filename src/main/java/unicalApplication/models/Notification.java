@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import unicalApplication.enums.Category;
 
 @Entity
 @Data
@@ -27,7 +28,7 @@ public class Notification {
 	@OneToOne
 	private Event event;
 	
-	private String description;
+	private Category category;
 	
 	@ManyToOne
 	@JsonIgnore

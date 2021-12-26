@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javassist.NotFoundException;
 import unicalApplication.enums.Category;
@@ -58,15 +57,16 @@ public class EventService {
 	public Event add(Event event) {
 		if (event.getCourse() != null) {
 			List<UserEntity> findByCourse = userDAO.findByCourse(event.getCourse());
-			for(int i = 0; i<findByCourse.size(); i++) {
+			Event eventInDB = eventDAO.save(event);
+			for (int i = 0; i < findByCourse.size(); i++) {
 				Notification notification = new Notification();
-				notification.setTitle(event.getTitle());
+				notification.setTitle(eventInDB.getTitle());
 				notification.setCreationTime(new Date());
-//			notification.setEvent(event);
+				notification.setCategory(eventInDB.getCategory());
 				notification.setVisualized(false);
-				notification.setDescription(event.getDescription());
 				notification.setUser(findByCourse.get(i));
 				findByCourse.get(i).getNotifications().add(notification);
+				notification.setEvent(eventInDB);
 				notificationDAO.save(notification);
 			}
 			userDAO.saveAll(findByCourse);

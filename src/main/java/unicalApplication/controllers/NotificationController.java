@@ -90,11 +90,11 @@ public class NotificationController {
 		return ResponseEntity.ok(update);
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Notification> delete(@PathVariable long id){
+	@DeleteMapping("/{email}/{id}")
+	public ResponseEntity<Notification> delete(@PathVariable String email, @PathVariable long id ){
 		Notification delete;
 		try {
-			delete = notificationService.delete(id);
+			delete = notificationService.delete(email, id);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();

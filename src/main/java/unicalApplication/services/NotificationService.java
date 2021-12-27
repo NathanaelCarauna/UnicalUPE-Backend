@@ -58,8 +58,11 @@ public class NotificationService {
 		return Notification.get();
 	}
 
-	public Notification delete(Long id) throws NotFoundException {
+	public Notification delete( String email, Long id) throws NotFoundException {
+		Optional<UserEntity> findByEmail = userDao.findByEmail(email);
 		Notification Notification = this.findByID(id);
+		findByEmail.get().getNotifications().remove(Notification);
+		userDao.save(findByEmail.get());
 		notificationDAO.delete(Notification);
 		return Notification;
 	}

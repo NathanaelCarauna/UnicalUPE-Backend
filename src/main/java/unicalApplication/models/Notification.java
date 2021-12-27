@@ -31,7 +31,7 @@ public class Notification {
 	
 	private Category category;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnore
 	private UserEntity user;
 

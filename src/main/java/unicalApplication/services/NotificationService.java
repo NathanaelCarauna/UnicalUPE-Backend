@@ -2,11 +2,14 @@ package unicalApplication.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
+import unicalApplication.enums.Category;
 import unicalApplication.models.Event;
 import unicalApplication.models.Notification;
 import unicalApplication.models.UserEntity;
@@ -27,9 +30,18 @@ public class NotificationService {
 		return findByUser;
 	}
 
+	public List<Notification> findByCategory(String email, Category category) {
+		Optional<UserEntity> findByEmail = userDao.findByEmail(email);
+		List<Notification> findByUser = notificationDAO.findByUser(findByEmail.get());
+		List<Notification> filterByCategory = findByUser.stream()
+				.filter((item) -> item.getCategory() != null && item.getCategory().equals(category))
+				.collect(Collectors.toList());
+		return filterByCategory;
+	}
+
 	public List<Notification> getAll() throws NotFoundException {
 		List<Notification> all = notificationDAO.findAll();
-		if(all.isEmpty()) {
+		if (all.isEmpty()) {
 			throw new NotFoundException("Nenhuma notificação encontrada");
 		}
 		return all;
@@ -38,7 +50,6 @@ public class NotificationService {
 	public Notification add(Notification Notification) {
 		return notificationDAO.save(Notification);
 	}
-		
 
 	public Notification findByID(Long id) throws NotFoundException {
 		Optional<Notification> Notification = notificationDAO.findById(id);
@@ -59,9 +70,9 @@ public class NotificationService {
 			notificationInDb.setEvent(notification.getEvent());
 		if (notification.getTitle() != null)
 			notificationInDb.setTitle(notification.getTitle());
-		if(notification.isVisualized())
+		if (notification.isVisualized())
 			notificationInDb.setVisualized(true);
-		if(notification.getCategory()!= null)
+		if (notification.getCategory() != null)
 			notificationInDb.setCategory(notification.getCategory());
 
 		Notification save = notificationDAO.save(notificationInDb);

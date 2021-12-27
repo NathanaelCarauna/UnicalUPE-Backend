@@ -52,6 +52,13 @@ public class NotificationController {
 		}
 		return ResponseEntity.ok(byUser);
 	}
+	
+	@GetMapping("/findByCategory/{email}/{category}")
+	public ResponseEntity<List<Notification>> findByUser(@PathVariable String email, @PathVariable Category category){
+		List<Notification> byUser;
+		byUser = notificationService.findByCategory(email, category);
+		return ResponseEntity.ok(byUser);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Notification> findById(@PathVariable long id) {

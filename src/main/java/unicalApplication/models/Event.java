@@ -26,7 +26,7 @@ public class Event {
 	private Course course;
 	private String local;
 	private String presentor;
-		
+	@Lob
 	private String description;
 	private String link;
 	private String startDate;

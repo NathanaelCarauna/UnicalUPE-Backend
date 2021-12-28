@@ -21,7 +21,7 @@ import unicalApplication.repositories.IEventDAO;
 import unicalApplication.repositories.INotificationDAO;
 import unicalApplication.repositories.IUserDAO;
 
-@Transactional
+
 @Service
 public class EventService {
 

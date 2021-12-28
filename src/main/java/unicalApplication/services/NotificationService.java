@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import unicalApplication.models.UserEntity;
 import unicalApplication.repositories.INotificationDAO;
 import unicalApplication.repositories.IUserDAO;
 
+@Transactional
 @Service
 public class NotificationService {
 

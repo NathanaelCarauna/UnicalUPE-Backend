@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -25,6 +26,8 @@ public class Event {
 	private Course course;
 	private String local;
 	private String presentor;
+	
+	@Lob
 	private String description;
 	private String link;
 	private String startDate;

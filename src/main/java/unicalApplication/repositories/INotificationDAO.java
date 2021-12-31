@@ -13,5 +13,7 @@ import unicalApplication.models.UserEntity;
 public interface INotificationDAO extends JpaRepository<Notification, Long>{
 
 	List<Notification> findByUser(UserEntity user);
+	List<Notification> findByEvent(Event event);
+	void deleteByEvent(Event event);
 
 }

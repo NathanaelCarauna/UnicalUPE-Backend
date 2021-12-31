@@ -117,11 +117,11 @@ public class EventService {
 		return event.get();
 	}
 
-	public Event delete(String email, Long id) throws NotFoundException {
-		Optional<UserEntity> findByEmail = userDAO.findByEmail(email);
+	public Event delete(Long id) throws NotFoundException {
 		Event event = this.findByID(id);
-		findByEmail.get().getNotifications().remove(event);
-		userDAO.save(findByEmail.get());
+		List<UserEntity> findByCourse = userDAO.findByCourse(event.getCourse());
+		
+		notificationDAO.deleteByEvent(event);
 		eventDAO.delete(event);
 		return event;
 	}

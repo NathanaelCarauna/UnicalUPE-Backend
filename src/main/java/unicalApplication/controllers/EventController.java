@@ -104,7 +104,7 @@ public class EventController {
 	public ResponseEntity<Event> delete(@PathVariable String email, @PathVariable long id) {
 		Event delete;
 		try {
-			delete = eventService.delete(email, id);
+			delete = eventService.delete(id);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();

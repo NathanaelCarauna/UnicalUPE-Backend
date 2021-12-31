@@ -2,6 +2,7 @@ package unicalApplication.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,7 +121,10 @@ public class EventService {
 	public Event delete(Long id) throws NotFoundException {
 		Event event = this.findByID(id);
 		List<UserEntity> findByCourse = userDAO.findByCourse(event.getCourse());
-		
+		for (int i = 0; i < findByCourse.size(); i++) {
+			findByCourse.get(i).getNotifications().removeIf(item -> item.getEvent().equals(event));
+		}
+		userDAO.saveAll(findByCourse);
 		notificationDAO.deleteByEvent(event);
 		eventDAO.delete(event);
 		return event;

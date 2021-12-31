@@ -104,7 +104,7 @@ public class EventService {
 		if (event.getDescription() != null)
 			eventInDB.setDescription(event.getDescription());
 		if (event.getLink() != null)
-			eventInDB.setLink(event.getLink());
+			eventInDB.setLink(event.getLink());		
 
 		Event save = eventDAO.save(eventInDB);
 		return save;
@@ -117,8 +117,11 @@ public class EventService {
 		return event.get();
 	}
 
-	public Event delete(Long id) throws NotFoundException {
+	public Event delete(String email, Long id) throws NotFoundException {
+		Optional<UserEntity> findByEmail = userDAO.findByEmail(email);
 		Event event = this.findByID(id);
+		findByEmail.get().getNotifications().remove(event);
+		userDAO.save(findByEmail.get());
 		eventDAO.delete(event);
 		return event;
 	}

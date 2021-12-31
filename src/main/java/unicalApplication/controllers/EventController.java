@@ -100,11 +100,11 @@ public class EventController {
 		return ResponseEntity.ok(update);
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Event> delete(@PathVariable long id) {
+	@DeleteMapping("/{email}/{id}")
+	public ResponseEntity<Event> delete(@PathVariable String email, @PathVariable long id) {
 		Event delete;
 		try {
-			delete = eventService.delete(id);
+			delete = eventService.delete(email, id);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();

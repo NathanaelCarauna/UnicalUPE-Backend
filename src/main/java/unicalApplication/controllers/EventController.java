@@ -100,8 +100,8 @@ public class EventController {
 		return ResponseEntity.ok(update);
 	}
 
-	@DeleteMapping("/{email}/{id}")
-	public ResponseEntity<Event> delete(@PathVariable String email, @PathVariable long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Event> delete(@PathVariable long id) {
 		Event delete;
 		try {
 			delete = eventService.delete(id);

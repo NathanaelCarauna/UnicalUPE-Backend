@@ -19,7 +19,8 @@ public class Event {
 	private long id;
 	
 	private String title;
-	
+	@ManyToOne
+	private UserEntity user;
 	private Category category;
 	@ManyToOne
 	@JoinColumn(name = "course_id", referencedColumnName = "id")

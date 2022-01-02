@@ -51,6 +51,12 @@ public class EventService {
 		return findByDate;
 	}
 
+	public List<Event> findByUser(long id) throws NotFoundException {
+		Optional<UserEntity> findUserByID = userDAO.findById(id);
+		List<Event> findByDate = eventDAO.findByUser(findUserByID.get());
+		return findByDate;
+	}
+
 	public List<Event> getAll() throws NotFoundException {
 		List<Event> all = eventDAO.findAll();
 		if (all.isEmpty()) {

@@ -30,6 +30,10 @@ public class UserEntity {
 	private String name;
 	
 	@JsonIgnore
+	@OneToMany
+	private List<Event> events;
+	
+	@JsonIgnore
 	@OneToMany(targetEntity = Notification.class, cascade = CascadeType.ALL)
 	private List<Notification> notifications;
 	

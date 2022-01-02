@@ -70,7 +70,7 @@ public class EventController {
 		return ResponseEntity.ok(byDate);
 	}
 	@GetMapping("/findByUser/{id}")
-	public ResponseEntity<List<Event>> findByDate(@PathVariable long id) {
+	public ResponseEntity<List<Event>> findByUser(@PathVariable long id) {
 		List<Event> byUser;
 		try {
 			byUser = eventService.findByUser(id);
